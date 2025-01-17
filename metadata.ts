@@ -2,7 +2,7 @@
  * Specifies the Project name, can be changed later
  * @type[string]
  */
-export const PROJECT_NAME = "Next.js-Starter-Full-Control-with-ShadCN-UI-R2-Cloudflare-CDN-Auth.js-File-Uploads"
+export const PROJECT_NAME = "Mobius"
 
 /**
  * Specifies the Base URL of the project, can be changed later

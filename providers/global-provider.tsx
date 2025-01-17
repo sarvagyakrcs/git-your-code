@@ -9,17 +9,17 @@ type Props = {
 
 const GlobalProvider = ({ children }: Props) => {
     return (
-        <ThemeProvider
+        <QueryClientProvider>
+            {/* <ThemeProvider
             attribute="class"
             defaultTheme="system"
             enableSystem
             disableTransitionOnChange
-        >
+        > */}
 
-            <QueryClientProvider>
-                {children}
-            </QueryClientProvider>
-        </ThemeProvider>
+            {children}
+            {/* </ThemeProvider> */}
+        </QueryClientProvider>
     )
 }
 

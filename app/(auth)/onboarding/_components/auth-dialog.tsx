@@ -7,13 +7,13 @@ import { Button } from "@/components/ui/button"
 import  SignInForm  from "./sign-in-form"
 import { SignUpForm } from "./sign-up-form"
 
-export function AuthDialog() {
+export function AuthDialog({ children } : {children?: React.ReactNode}) {
   const [open, setOpen] = useState(false)
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-        <Button variant="default">Sign In / Sign Up</Button>
+        {children ? children : <Button variant="default">Sign In / Sign Up</Button>}
       </DialogTrigger>
       <DialogContent className="sm:max-w-[625px]">
         <DialogHeader>

@@ -73,5 +73,36 @@ model User {
   accounts      Account[]
   sessions      Session[]
 
+  // relations
+  userToProjects UserToProjects[]
+
   @@map("users")
+}
+
+// A user can have multiple projects and a project can have multiple users so a many to many relationship is created
+model Project {
+  id        String   @id @default(cuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  deletedAt DateTime?
+
+  name      String
+  githubURL String
+
+  // relations
+  userToProjects UserToProjects[]
+}
+
+model UserToProjects {
+  id        String   @id @default(cuid())
+  projectId String 
+  project Project @relation(fields: [projectId], references: [id])
+
+  userId String
+  user User @relation(fields: [userId], references: [id])
+
+  @@unique([projectId, userId])
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  deletedAt DateTime?
 }
