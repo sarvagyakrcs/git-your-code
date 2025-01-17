@@ -12,10 +12,10 @@ export default function DashboardGrid({ project } : {project : Project}) {
                 <div className="relative flex h-full flex-col overflow-hidden rounded-[calc(theme(borderRadius.lg)+1px)] lg:rounded-l-[calc(2rem+1px)]">
                     <div className="px-8 pb-3 pt-8 sm:px-10 sm:pb-0 sm:pt-10">
                         <p className="mt-2 text-lg font-medium tracking-tight text-gray-950 max-lg:text-center">
-                            Mobile friendly
+                            Chat With Your Codebase
                         </p>
                         <p className="mt-2 max-w-lg text-sm/6 text-gray-600 max-lg:text-center">
-                            Anim aute id magna aliqua ad ad non deserunt sunt. Qui irure qui lorem cupidatat commodo.
+                            Uses AI to provide explanations, identify potential bugs, suggest optimizations, and even generate code snippets directly related to your queries.
                         </p>
                     </div>
                     <div className="relative min-h-[30rem] w-full grow [container-type:inline-size] max-lg:mx-auto max-lg:max-w-sm">
@@ -54,7 +54,9 @@ export default function DashboardGrid({ project } : {project : Project}) {
                             Analyzing your meetings with { PROJECT_NAME }. Powered by AI
                         </p>
                     </div>
-                    <CreateAMeeting />
+                    <div className="flex flex-1 items-center justify-center px-8 max-lg:pb-12 max-lg:pt-10 sm:px-10 lg:pb-2">
+                        <CreateAMeeting />
+                    </div>
                 </div>
                 <div className="pointer-events-none absolute inset-px rounded-lg shadow ring-1 ring-black/5"></div>
             </div>
@@ -66,7 +68,7 @@ export default function DashboardGrid({ project } : {project : Project}) {
                             Powerful APIs
                         </p>
                         <p className="mt-2 max-w-lg text-sm/6 text-gray-600 max-lg:text-center">
-                            Sit quis amet rutrum tellus ullamcorper ultricies libero dolor eget sem sodales gravida.
+                            Leverage our APIs to integrate "Chat With Your Codebase" into your app, providing users with an AI-driven code exploration experience.
                         </p>
                     </div>
                     <div className="relative min-h-[30rem] w-full grow">
