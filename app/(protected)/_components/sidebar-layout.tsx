@@ -105,7 +105,7 @@ export default function SidebarLayout({ children, session, projects }: { childre
                                             <ul role="list" className="-mx-2 mt-2 space-y-1">
                                                 {projects.map((project) => {
                                                     const isActive = pathname.split('/')[pathname.split('/').length - 1] === project.id;
-                                                    return (<li key={project.name}>
+                                                    return (<li key={project.id}>
                                                         {projects.length == 0 && (
                                                             <li>
                                                                 <Link
@@ -204,7 +204,7 @@ export default function SidebarLayout({ children, session, projects }: { childre
                                         )}
                                         {projects.map((project) => {
                                             const isActive = pathname.split('/')[pathname.split('/').length - 1] === project.id;
-                                            return (<li key={project.name}>
+                                            return (<li key={project.id}>
                                                 <Link
                                                     href={`/projects/${project.id}`}
                                                     onClick={() => setCurrentProjectId(project.id)}

@@ -34,14 +34,18 @@ type Response = {
 
 export const GetCommitHashes = async (githubUrl: string): Promise<Response[]> => {
     const [, , , owner, repo] = githubUrl.split('/');
-
+    console.log({
+        url: githubUrl,
+        owner,
+        repo,
+    })
     try {
         const { data } = await octokit.rest.repos.listCommits({
             owner,
             repo,
             per_page: 100, // Fetch up to 100 commits (adjust as needed)
         });
-
+        
         const commits = data.map(commit => ({
             commitHash: commit.sha,
             commitMessage: commit.commit.message,
@@ -50,12 +54,13 @@ export const GetCommitHashes = async (githubUrl: string): Promise<Response[]> =>
             commitDate: commit.commit.author?.date || '',
         }));
 
+
         // Sort commits by date, latest first
         commits.sort((a, b) => new Date(b.commitDate).getTime() - new Date(a.commitDate).getTime());
 
         return commits;
     } catch (error) {
-        console.error('Error fetching commits:', error);
+        if(error instanceof Error) console.error('Error fetching commits:', error);
         throw error;
     }
 };
@@ -71,7 +76,6 @@ export const pollCommit = async (projectId: string) => {
     }
 
     const url = project.githubURL;
-
     const commits = await GetCommitHashes(url);
     const unprocessedCommits = await getUnprocessedCommits(projectId, commits);
 
