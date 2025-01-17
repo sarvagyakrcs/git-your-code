@@ -5,6 +5,7 @@ import { GetUserById } from "../data/user";
 import prisma from "@/lib/prisma";
 import { CreateProjectSchema, CreateProjectSchemaType } from "@/lib/schema/create-project-schema";
 import { revalidatePath } from "next/cache";
+import { pollCommit } from "../github-octokit/commits";
 
 export const CreateProject = async (formData: CreateProjectSchemaType) => {
     try {
@@ -38,6 +39,7 @@ export const CreateProject = async (formData: CreateProjectSchemaType) => {
             }
         })
         revalidatePath("/create")
+        await pollCommit(project.id);
         return project;
     } catch (error) {
         console.error("Create project error", error);

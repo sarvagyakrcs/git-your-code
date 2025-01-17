@@ -1,16 +1,9 @@
 "use client"
-import {
-    toast
-} from "sonner"
-import {
-    useForm
-} from "react-hook-form"
-import {
-    zodResolver
-} from "@hookform/resolvers/zod"
-import {
-    Button
-} from "@/components/ui/button"
+
+import { toast } from "sonner"
+import { useForm } from "react-hook-form"
+import { zodResolver } from "@hookform/resolvers/zod"
+import { Button } from "@/components/ui/button"
 import {
     Form,
     FormControl,
@@ -20,16 +13,14 @@ import {
     FormLabel,
     FormMessage,
 } from "@/components/ui/form"
-import {
-    Input
-} from "@/components/ui/input"
+import { Input } from "@/components/ui/input"
 import { CreateProjectSchema, CreateProjectSchemaType } from "@/lib/schema/create-project-schema"
 import { useMutation } from "@tanstack/react-query"
 import { CreateProject } from "@/actions/projects"
-import { Loader, Plus } from "lucide-react"
+import { Loader2, GitBranch, Key, FolderGit2 } from "lucide-react"
+import { Card } from "@/components/ui/card"
 
 export default function CreateProjectForm() {
-
     const form = useForm<CreateProjectSchemaType>({
         resolver: zodResolver(CreateProjectSchema),
     })
@@ -38,39 +29,40 @@ export default function CreateProjectForm() {
         mutationKey: ["createProject"],
         mutationFn: CreateProject,
         onMutate: () => {
-            toast.loading("Creating project", { id: "createProject" });
+            toast.loading("Creating project", { id: "createProject" })
         },
         onError: () => {
-            toast.error("Failed to create project. Please try again.", { id: "createProject" });
+            toast.error("Failed to create project. Please try again.", { id: "createProject" })
         },
         onSuccess: () => {
-            toast.success("Project created successfully", { id: "createProject" });
-            form.reset();
+            toast.success("Project created successfully", { id: "createProject" })
+            form.reset()
         }
     })
 
     function onSubmit(values: CreateProjectSchemaType) {
-        CreateProjectMutation.mutate(values);
+        CreateProjectMutation.mutate(values)
     }
 
     return (
         <Form {...form}>
-            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8 max-w-3xl mx-auto py-10">
-
+            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6 max-w-xl">
                 <FormField
                     control={form.control}
                     name="projectName"
                     render={({ field }) => (
                         <FormItem>
-                            <FormLabel>Project name</FormLabel>
-                            <FormMessage />
+                            <FormLabel className="flex items-center gap-2">
+                                <FolderGit2 className="h-4 w-4" />
+                                Project Name
+                            </FormLabel>
                             <FormControl>
-                                <Input
-                                    placeholder="Slides"
-                                    type=""
-                                    {...field} />
+                                <Input placeholder="My Awesome Project" {...field} />
                             </FormControl>
-                            <FormDescription>This is your project name.</FormDescription>
+                            <FormDescription>
+                                Choose a unique name for your project
+                            </FormDescription>
+                            <FormMessage />
                         </FormItem>
                     )}
                 />
@@ -80,15 +72,19 @@ export default function CreateProjectForm() {
                     name="repoURL"
                     render={({ field }) => (
                         <FormItem>
-                            <FormLabel>Github Repository URL</FormLabel>
+                            <FormLabel className="flex items-center gap-2">
+                                <GitBranch className="h-4 w-4" />
+                                GitHub Repository URL
+                            </FormLabel>
                             <FormControl>
                                 <Input
-                                    placeholder="https://github.com/sarvagyakrcs/youdemy.git"
-
-                                    type="text"
-                                    {...field} />
+                                    placeholder="https://github.com/username/repository.git"
+                                    {...field}
+                                />
                             </FormControl>
-                            <FormDescription>This is your github repo URL.</FormDescription>
+                            <FormDescription>
+                                The URL of your GitHub repository
+                            </FormDescription>
                             <FormMessage />
                         </FormItem>
                     )}
@@ -99,20 +95,42 @@ export default function CreateProjectForm() {
                     name="githubToken"
                     render={({ field }) => (
                         <FormItem>
-                            <FormLabel>Github Token</FormLabel>
+                            <FormLabel className="flex items-center gap-2">
+                                <Key className="h-4 w-4" />
+                                GitHub Token
+                            </FormLabel>
                             <FormControl>
                                 <Input
-                                    placeholder="************"
-
-                                    type=""
-                                    {...field} />
+                                    type="password"
+                                    placeholder="ghp_xxxxxxxxxxxx"
+                                    {...field}
+                                />
                             </FormControl>
-                            <FormDescription>Optional : For private repositories</FormDescription>
+                            <FormDescription>
+                                Required for private repositories
+                            </FormDescription>
                             <FormMessage />
                         </FormItem>
                     )}
                 />
-                <Button disabled={CreateProjectMutation.isPending} type="submit">{ CreateProjectMutation.isPending ? <Loader className="h-6 w-6 animate-spin" /> : <Plus className="h-6 w-6" /> } Create</Button>
+
+                <Button
+                    disabled={CreateProjectMutation.isPending}
+                    type="submit"
+                    className="w-full"
+                >
+                    {CreateProjectMutation.isPending ? (
+                        <>
+                            <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                            Creating Project...
+                        </>
+                    ) : (
+                        <>
+                            <FolderGit2 className="mr-2 h-4 w-4" />
+                            Create Project
+                        </>
+                    )}
+                </Button>
             </form>
         </Form>
     )

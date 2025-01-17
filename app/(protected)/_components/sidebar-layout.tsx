@@ -25,6 +25,7 @@ import { Session } from 'next-auth'
 import { Plus } from 'lucide-react'
 import { Project } from '@prisma/client'
 import { cn } from '@/lib/utils'
+import Link from 'next/link'
 
 const navigation = [
     { name: 'Dashboard', href: '/home', icon: HomeIcon, current: true },
@@ -82,7 +83,7 @@ export default function SidebarLayout({ children, session, projects }: { childre
                                                     const isActive = pathname === item.href
                                                     return (
                                                         <li key={item.name}>
-                                                            <a
+                                                            <Link
                                                                 href={item.href}
                                                                 className={classNames(
                                                                     isActive
@@ -93,7 +94,7 @@ export default function SidebarLayout({ children, session, projects }: { childre
                                                             >
                                                                 <item.icon aria-hidden="true" className="size-6 shrink-0" />
                                                                 {item.name}
-                                                            </a>
+                                                            </Link>
                                                         </li>
                                                     )
                                                 })}
@@ -107,16 +108,16 @@ export default function SidebarLayout({ children, session, projects }: { childre
                                                     return (<li key={project.name}>
                                                         {projects.length == 0 && (
                                                             <li>
-                                                                <a
+                                                                <Link
                                                                     href="/create"
                                                                     className="group flex gap-x-3 rounded-md p-2 text-sm/6 font-semibold text-gray-400 hover:bg-gray-800 hover:text-white"
                                                                 >
                                                                     <Plus aria-hidden="true" className="size-6 shrink-0" />
                                                                     Create Project
-                                                                </a>
+                                                                </Link>
                                                             </li>
                                                         )}
-                                                        <a
+                                                        <Link
                                                             href={`/projects/${project.id}`}
                                                             onClick={() => setCurrentProjectId(project.id)}
                                                             className={classNames(
@@ -130,19 +131,19 @@ export default function SidebarLayout({ children, session, projects }: { childre
                                                                 {project.name.split("")[0]}
                                                             </span>
                                                             <span className="truncate">{project.name}</span>
-                                                        </a>
+                                                        </Link>
                                                     </li>)
                                                 })}
                                             </ul>
                                         </li>
                                         <li className="mt-auto">
-                                            <a
+                                            <Link
                                                 href="#"
                                                 className="group -mx-2 flex gap-x-3 rounded-md p-2 text-sm/6 font-semibold text-gray-400 hover:bg-gray-800 hover:text-white"
                                             >
                                                 <Cog6ToothIcon aria-hidden="true" className="size-6 shrink-0" />
                                                 Settings
-                                            </a>
+                                            </Link>
                                         </li>
                                     </ul>
                                 </nav>
@@ -170,7 +171,7 @@ export default function SidebarLayout({ children, session, projects }: { childre
                                             const isActive = pathname === item.href
                                             return (
                                                 <li key={item.name}>
-                                                    <a
+                                                    <Link
                                                         href={item.href}
                                                         className={classNames(
                                                             isActive
@@ -181,7 +182,7 @@ export default function SidebarLayout({ children, session, projects }: { childre
                                                     >
                                                         <item.icon aria-hidden="true" className="size-6 shrink-0" />
                                                         {item.name}
-                                                    </a>
+                                                    </Link>
                                                 </li>
                                             )
                                         })}
@@ -192,19 +193,19 @@ export default function SidebarLayout({ children, session, projects }: { childre
                                     <ul role="list" className="-mx-2 mt-2 space-y-1">
                                         {projects.length == 0 && (
                                             <li>
-                                                <a
+                                                <Link
                                                     href="/create"
                                                     className="group flex gap-x-3 rounded-md p-2 text-sm/6 font-semibold text-gray-400 hover:bg-gray-800 hover:text-white"
                                                 >
                                                     <Plus aria-hidden="true" className="size-6 shrink-0" />
                                                     Create Project
-                                                </a>
+                                                </Link>
                                             </li>
                                         )}
                                         {projects.map((project) => {
                                             const isActive = pathname.split('/')[pathname.split('/').length - 1] === project.id;
                                             return (<li key={project.name}>
-                                                <a
+                                                <Link
                                                     href={`/projects/${project.id}`}
                                                     onClick={() => setCurrentProjectId(project.id)}
                                                     className={classNames(
@@ -223,19 +224,19 @@ export default function SidebarLayout({ children, session, projects }: { childre
                                                         {project.name.split("")[0]}
                                                     </span>
                                                     <span className="truncate">{project.name}</span>
-                                                </a>
+                                                </Link>
                                             </li>
                                         )})}
                                     </ul>
                                 </li>
                                 <li className="mt-auto">
-                                    <a
+                                    <Link
                                         href="#"
                                         className="group -mx-2 flex gap-x-3 rounded-md p-2 text-sm/6 font-semibold text-gray-400 hover:bg-gray-800 hover:text-white"
                                     >
                                         <Cog6ToothIcon aria-hidden="true" className="size-6 shrink-0" />
                                         Settings
-                                    </a>
+                                    </Link>
                                 </li>
                             </ul>
                         </nav>
@@ -282,7 +283,7 @@ export default function SidebarLayout({ children, session, projects }: { childre
                     </div>
 
                     <main className="py-10">
-                        <div className="px-4 sm:px-6 lg:px-8">{children}</div>
+                        <div className="p-4">{children}</div>
                     </main>
                 </div>
             </div>
