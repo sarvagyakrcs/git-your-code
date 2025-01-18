@@ -27,6 +27,7 @@ import { motion, AnimatePresence } from "framer-motion"
 import { PROFILE_PIC_ALLOWED_FILE_TYPES, PROFILE_PIC_MAX_FILE_SIZE } from "../../../../metadata"
 import { GetUserByEmail, GetUserByUsername } from "@/actions/data/user"
 import ImageCropper from "./image-cropper"
+import { handleError } from "@/utils/error-logs"
 
 
 export function RegisterForm() {
@@ -171,7 +172,7 @@ export function RegisterForm() {
             const result = await GetUserByUsername(username);
             setError(result ? "Username Already Taken." : "");
         } catch (err) {
-            console.error("Error checking username:", err);
+            handleError(err);
             setError("An error occurred while checking the username.");
         }
     };
@@ -185,7 +186,7 @@ export function RegisterForm() {
             const result = await GetUserByEmail(email);
             setError(result ? "Email Already Taken." : "");
         } catch (err) {
-            console.error("Error checking email:", err);
+            handleError(err);
             setError("An error occurred while checking the email.");
         }
     };

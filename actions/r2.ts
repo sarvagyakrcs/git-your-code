@@ -1,5 +1,6 @@
 'use server'
 
+import { handleError } from '@/utils/error-logs';
 import { uploadToR2, getSignedUrlFromR2, deleteFromR2 } from '../utils/r2';
 import { v4 as uuidv4 } from 'uuid';
 
@@ -16,7 +17,7 @@ export async function uploadFile(formData: FormData) {
     const url = await uploadToR2(file, key);
     return { success: true, url, key };
   } catch (error) {
-    console.error('Error uploading file:', error);
+    handleError(error);
     return { success: false, error: 'Failed to upload file' };
   }
 }
@@ -33,7 +34,7 @@ export async function uploadFileAsFile(file: File) {
     const url = await uploadToR2(file, key);
     return { success: true, url, key };
   } catch (error) {
-    console.error('Error uploading file:', error);
+    handleError(error);
     return { success: false, error: 'Failed to upload file' };
   }
 }
@@ -43,7 +44,7 @@ export async function getSignedUrl(key: string) {
     const url = await getSignedUrlFromR2(key);
     return { success: true, url };
   } catch (error) {
-    console.error('Error getting signed URL:', error);
+    handleError(error);
     return { success: false, error: error instanceof Error ? error.message : 'Failed to get signed URL' };
   }
 }
@@ -53,7 +54,7 @@ export async function deleteFile(key: string) {
     await deleteFromR2(key);
     return { success: true };
   } catch (error) {
-    console.error('Error deleting file:', error);
+    handleError(error);
     return { success: false, error: 'Failed to delete file' };
   }
 }

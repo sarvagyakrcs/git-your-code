@@ -23,6 +23,7 @@ import SuccessToast from "@/components/global/success-message"
 import Link from "next/link"
 import { LoginSchemaType } from "@/lib/schema/login-schema"
 import ProviderSignIn from "./provider-login"
+import { handleError } from "@/utils/error-logs"
 
 export default function LoginForm() {
     const [isLoading, setIsLoading] = useState<boolean>(false)
@@ -54,7 +55,7 @@ export default function LoginForm() {
             }
         } catch (error) {
             setError("An error occurred while logging in");
-            console.error(error); // Log the error for debugging purposes
+            handleError(error); // Log the error for debugging purposes
         } finally {
             setIsLoading(false);
             if (!error) {

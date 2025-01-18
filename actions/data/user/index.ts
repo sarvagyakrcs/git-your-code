@@ -1,5 +1,6 @@
 "use server";
 import prisma from "@/lib/prisma";
+import { handleError } from "@/utils/error-logs";
 
 /**
  * Retrieves a user by their email from the database, based on the current session.
@@ -26,7 +27,7 @@ export const GetUserByEmail = async (email: string | undefined) => {
         return user;
         
     } catch (error) {
-        console.error({ error });
+        handleError(error);
         return null;
     }
 };
@@ -56,7 +57,7 @@ export const GetUserByUsername = async (username: string | undefined) => {
         return user;
         
     } catch (error) {
-        console.error({ error });
+        handleError(error);
         return null;
 
     }
@@ -88,7 +89,7 @@ export const GetUserById = async (id: string | undefined) => {
         return user;
         
     } catch (error) {
-        console.error({ error });
+        handleError(error);
         return null;
     }
 };

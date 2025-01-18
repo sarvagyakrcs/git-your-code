@@ -26,6 +26,7 @@ import { RegisterSchema, RegisterSchemaType } from "@/lib/schema/register-schema
 import { useMutation } from "@tanstack/react-query"
 import Register from "@/actions/auth/register"
 import { $Enums } from "@prisma/client"
+import { handleError } from "@/utils/error-logs"
 
 export default function OnboardingForm({ Role } : {Role : $Enums.UserRole}) {
   const form = useForm<RegisterSchemaType>({
@@ -50,7 +51,7 @@ export default function OnboardingForm({ Role } : {Role : $Enums.UserRole}) {
     try {
       registerClient.mutate(values)
     } catch (error) {
-      console.error("Form submission error", error);
+      handleError(error);
       toast.error("Failed to submit the form. Please try again.");
     }
   }

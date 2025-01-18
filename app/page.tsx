@@ -1,4 +1,5 @@
 import { auth } from '@/auth'
+import Footer from '@/components/global/footer';
 import Header from '@/components/landing-page/header'
 import LandingPageHero from '@/components/landing-page/hero'
 
@@ -9,9 +10,10 @@ function classNames(...classes: string[]) {
 export default async function LandingPage() {
   const session = await auth();
   return (
-    <div className="bg-white pb-10">
+    <div className="bg-white">
       <Header session={session} />
-      <LandingPageHero />
+      <LandingPageHero session={session} />
+      <Footer />
     </div>
   )
 }

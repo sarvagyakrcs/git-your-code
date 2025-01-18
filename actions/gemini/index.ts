@@ -1,4 +1,5 @@
 import { gemini } from "@/lib/gemini"
+import { handleError } from "@/utils/error-logs";
 
 export const summarizeCommitByAI = async (diff: string) => {
     try {
@@ -76,6 +77,6 @@ export const summarizeCommitByAI = async (diff: string) => {
         const res = await gemini.generateContent(prompt);
         return res.response.text();
     } catch (error) {
-        if(error instanceof Error) console.error('Error summarizing commit:', error.message);
+        handleError(error);
     }
 } 

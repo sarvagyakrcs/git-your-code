@@ -97,10 +97,10 @@ model Project {
 model UserToProjects {
   id        String   @id @default(cuid())
   projectId String 
-  project Project @relation(fields: [projectId], references: [id])
+  project Project @relation(fields: [projectId], references: [id], onDelete: Cascade)
 
   userId String
-  user User @relation(fields: [userId], references: [id])
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@unique([projectId, userId])
   createdAt DateTime @default(now())
@@ -114,7 +114,7 @@ model Commit {
   updatedAt DateTime @updatedAt
 
   projectId String
-  project Project @relation(fields: [projectId], references: [id])
+  project Project @relation(fields: [projectId], references: [id], onDelete: Cascade)
 
   commitMessage String
   commitHash String
@@ -122,4 +122,13 @@ model Commit {
   commitAuthorAvatar String
 
   summary String? // AI Summary
+}
+
+model Error {
+  id        String   @id @default(cuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  message String
+  stack String
 }

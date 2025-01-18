@@ -1,4 +1,5 @@
 import prisma from "@/lib/prisma";
+import { handleError } from "@/utils/error-logs";
 
 export const getVerificationTokenByEmail = async (email : string) => {
     const db = prisma;
@@ -10,7 +11,7 @@ export const getVerificationTokenByEmail = async (email : string) => {
         })
         return verificationToken
     } catch (error ) {
-        console.error(error)
+        handleError(error);
         return null;
     }
 }
@@ -25,7 +26,7 @@ export const getVerificationTokenByToken = async (token : string) => {
         })
         return verificationToken
     } catch (error) {
-        console.error({error})
+        handleError(error);
         return null;
     }
 }
@@ -40,7 +41,7 @@ export const getPasswordResetTokenByEmail = async (token : string) => {
         })
         return verificationToken
     } catch (error) {
-        console.error(error)
+        handleError(error);
         return null;
     }
 }

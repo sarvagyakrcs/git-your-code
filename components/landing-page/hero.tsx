@@ -11,8 +11,13 @@ import {
     ServerIcon,
 } from '@heroicons/react/20/solid'
 
-type Props = {}
+type Props = {
+    session: Session | null
+}
 import { cn as classNames } from '@/lib/utils'
+import Image from 'next/image'
+import Link from 'next/link'
+import { Session } from 'next-auth'
 
 const features = [
     {
@@ -104,7 +109,7 @@ const faqs = [
 
 const LandingPageHero = (props: Props) => {
     return (
-        <main>
+        <main className='pb-16'>
             {/* Hero section */}
             <div className="relative isolate overflow-hidden bg-gray-900 pb-16 pt-14 sm:pb-20">
                 <img
@@ -128,7 +133,7 @@ const LandingPageHero = (props: Props) => {
                     <div className="mx-auto max-w-2xl py-32 sm:py-48 lg:py-56">
                         <div className="hidden sm:mb-8 sm:flex sm:justify-center">
                             <div className="relative rounded-full px-3 py-1 text-sm/6 text-gray-400 ring-1 ring-white/10 hover:ring-white/20">
-                                Announcing our next round of funding.{' '}
+                                Announcing our first round of funding.{' '}
                                 <a href="#" className="font-semibold text-white">
                                     <span aria-hidden="true" className="absolute inset-0" />
                                     Read more <span aria-hidden="true">&rarr;</span>
@@ -144,12 +149,12 @@ const LandingPageHero = (props: Props) => {
                                 amet fugiat veniam occaecat.
                             </p>
                             <div className="mt-10 flex items-center justify-center gap-x-6">
-                                <a
-                                    href="#"
+                                <Link
+                                    href={props.session ? "/home" : "/onboarding"}
                                     className="rounded-md bg-indigo-500 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-400"
                                 >
-                                    Get started
-                                </a>
+                                    {props.session ? "Home" : "Join Us"}
+                                </Link>
                                 <a href="#" className="text-sm/6 font-semibold text-white">
                                     Learn more <span aria-hidden="true">→</span>
                                 </a>
@@ -226,9 +231,9 @@ const LandingPageHero = (props: Props) => {
                 </div>
                 <div className="relative overflow-hidden pt-16">
                     <div className="mx-auto max-w-7xl px-6 lg:px-8">
-                        <img
+                        <Image
                             alt="App screenshot"
-                            src="https://tailwindui.com/plus/img/component-images/project-app-screenshot.png"
+                            src="/app-screenshot.png"
                             width={2432}
                             height={1442}
                             className="mb-[-12%] rounded-xl shadow-2xl ring-1 ring-gray-900/10"

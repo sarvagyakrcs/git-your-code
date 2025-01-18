@@ -23,6 +23,7 @@ import { octokit } from "@/lib/github";
 import prisma from "@/lib/prisma";
 import axios from "axios"
 import { summarizeCommitByAI } from "../gemini";
+import { handleError } from "@/utils/error-logs";
 
 type Response = {
     commitHash: string;
@@ -43,7 +44,7 @@ export const GetCommitHashes = async (githubUrl: string): Promise<Response[]> =>
         const { data } = await octokit.rest.repos.listCommits({
             owner,
             repo,
-            per_page: 100, // Fetch up to 100 commits (adjust as needed)
+            per_page: 15, // Fetch up to 100 commits (adjust as needed)
         });
         
         const commits = data.map(commit => ({
@@ -60,7 +61,7 @@ export const GetCommitHashes = async (githubUrl: string): Promise<Response[]> =>
 
         return commits;
     } catch (error) {
-        if(error instanceof Error) console.error('Error fetching commits:', error);
+        handleError(error);
         throw error;
     }
 };
