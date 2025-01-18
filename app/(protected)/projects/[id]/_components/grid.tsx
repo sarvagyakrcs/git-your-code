@@ -81,7 +81,9 @@ export default function DashboardGrid({ project } : {project : Project}) {
                                     <div className="border-r border-gray-600/10 px-4 py-2">App.jsx</div>
                                 </div>
                             </div>
-                            <div className="px-6 pb-14 pt-6">{/* Your code example */}</div>
+                            <div className="px-6 pb-14 pt-6">{`
+                                
+                            `}</div>
                         </div>
                     </div>
                 </div>

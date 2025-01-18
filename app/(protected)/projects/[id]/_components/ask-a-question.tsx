@@ -4,6 +4,7 @@ import AnswerDialogue from './answer-dialogue';
 import { askQuestion } from '@/actions/ask-question';
 import { set } from 'date-fns';
 import { readStreamableValue } from 'ai/rsc';
+import { Loader } from 'lucide-react';
 
 
 const AskAQuestion = ({ projectId }: { projectId: string }) => {
@@ -52,11 +53,11 @@ const AskAQuestion = ({ projectId }: { projectId: string }) => {
                         className="rounded mt-3 bg-indigo-600 px-2 py-1 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
                         disabled={loading}
                     >
-                        Ask Question
+                        { loading ? <Loader className='h-6 w-6 animate-spin' /> : "Ask Question" }
                     </button>
                     {answer && <button
                         type="button"
-                        className="rounded mt-3 bg-indigo-600 px-2 py-1 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                        className="rounded mt-3 bg-white border px-2 py-1 text-sm font-semibold text-black shadow-sm hover:bg-gray-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
                         onClick={() => setOpen(true)}
                     >
                         Last Answer
@@ -70,3 +71,4 @@ const AskAQuestion = ({ projectId }: { projectId: string }) => {
 }
 
 export default AskAQuestion
+
