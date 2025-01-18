@@ -1,12 +1,14 @@
 
 generator client {
   provider = "prisma-client-js"
+  previewFeatures = ["postgresqlExtensions"]
 }
 
 datasource db {
   provider  = "postgresql"
   url       = env("DATABASE_URL")
   directUrl = env("DIRECT_URL")
+  extensions = [vector]
 }
 
 model Account {
@@ -92,6 +94,7 @@ model Project {
   // relations
   userToProjects UserToProjects[]
   commits Commit[]
+  sourceCodeEmbeddings SourceCodeEmbedding[]
 }
 
 model UserToProjects {
@@ -131,4 +134,16 @@ model Error {
 
   message String
   stack String
+}
+
+model SourceCodeEmbedding {
+  id        String   @id @default(cuid())
+  
+  summaryEmbedding Unsupported("vector(768)")? // vector of 768 dimensions
+  sourceCode String
+  fileName String
+  summary String
+
+  projectId String
+  project Project @relation(fields: [projectId], references: [id], onDelete: Cascade)
 }

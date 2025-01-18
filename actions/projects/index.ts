@@ -7,6 +7,7 @@ import { CreateProjectSchema, CreateProjectSchemaType } from "@/lib/schema/creat
 import { revalidatePath } from "next/cache";
 import { pollCommit } from "../github-octokit/commits";
 import { handleError } from "@/utils/error-logs";
+import { indexGithubRepository } from "@/lib/github-loader";
 
 export const CreateProject = async (formData: CreateProjectSchemaType) => {
     try {
@@ -40,6 +41,7 @@ export const CreateProject = async (formData: CreateProjectSchemaType) => {
             }
         })
         revalidatePath("/create")
+        await indexGithubRepository(project.id, project.githubURL);
         await pollCommit(project.id);
         return project;
     } catch (error) {
