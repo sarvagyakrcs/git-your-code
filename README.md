@@ -144,13 +144,3 @@ CREATE INDEX embedding_idx ON "SourceCodeEmbedding"
 USING ivfflat (summaryEmbedding vector_cosine_ops)
 WITH (lists = 100);
 ```
-
-## Performance Characteristics
-
-The system achieves optimal performance through:
-
-- Cached embedding computation
-- Optimized HNSW index structures
-- Parallel similarity computation
-- Efficient context window assembly
-- Vector quantization techniques
