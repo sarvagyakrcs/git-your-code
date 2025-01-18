@@ -77,6 +77,7 @@ model User {
 
   // relations
   userToProjects UserToProjects[]
+  questionsAsked Question[]
 
   @@map("users")
 }
@@ -95,6 +96,7 @@ model Project {
   userToProjects UserToProjects[]
   commits Commit[]
   sourceCodeEmbeddings SourceCodeEmbedding[]
+  savedQuestions Question[]
 }
 
 model UserToProjects {
@@ -146,4 +148,20 @@ model SourceCodeEmbedding {
 
   projectId String
   project Project @relation(fields: [projectId], references: [id], onDelete: Cascade)
+}
+
+model Question {
+  id       String   @id @default(cuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  question String
+  answer String
+
+  filesReference Json
+  projectId String
+  project Project @relation(fields: [projectId], references: [id], onDelete: Cascade)
+
+  userId String
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 }

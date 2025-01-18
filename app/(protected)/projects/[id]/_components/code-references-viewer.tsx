@@ -7,6 +7,7 @@ import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter'
 import { nightOwl } from 'react-syntax-highlighter/dist/esm/styles/prism'
 import { Button } from '@/components/ui/button'
 import { Check, Copy } from 'lucide-react'
+import { v4 as uuid } from "uuid"
 
 type Props = {
     files: { fileName: string; sourceCode: string; summary: string }[]
@@ -30,10 +31,10 @@ const CodeReferencesViewer = ({ files }: Props) => {
 
     return (
         <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full mt-5">
-            <TabsList className="bg-muted p-1 rounded-md mb-2">
+            <TabsList className="bg-muted p-1 rounded-md mb-2 max-w-full overflow-scroll">
                 {files.map((file) => (
                     <TabsTrigger
-                        key={file.fileName}
+                        key={uuid()}
                         value={file.fileName}
                         className="px-3 py-1.5 text-sm font-medium rounded-md transition-colors whitespace-nowrap"
                     >
@@ -42,7 +43,7 @@ const CodeReferencesViewer = ({ files }: Props) => {
                 ))}
             </TabsList>
             {files.map((file) => (
-                <TabsContent key={file.fileName} value={file.fileName}>
+                <TabsContent key={uuid()} value={file.fileName}>
                     <div className="relative">
                         <Button
                             variant="outline"

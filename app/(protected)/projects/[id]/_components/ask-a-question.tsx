@@ -65,7 +65,7 @@ const AskAQuestion = ({ projectId }: { projectId: string }) => {
                 </div>
             </form>
 
-            <AnswerDialogue open={open} setOpen={setOpen} answer={answer} files={filesReferences} />
+            <AnswerDialogue question={question} open={open} setOpen={setOpen} answer={answer} files={filesReferences} projectId={projectId} />
         </div>
     )
 }

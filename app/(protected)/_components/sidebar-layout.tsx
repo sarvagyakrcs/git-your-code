@@ -11,7 +11,6 @@ import {
 import {
     Bars3Icon,
     BellIcon,
-    CalendarIcon,
     ChartPieIcon,
     Cog6ToothIcon,
     DocumentDuplicateIcon,
@@ -26,14 +25,12 @@ import { Plus } from 'lucide-react'
 import { Project } from '@prisma/client'
 import { cn } from '@/lib/utils'
 import Link from 'next/link'
+import { IconDeviceFloppy } from '@tabler/icons-react'
 
 const navigation = [
     { name: 'Dashboard', href: '/home', icon: HomeIcon, current: true },
-    { name: 'Team', href: '#', icon: UsersIcon, current: false },
     { name: 'Create Project', href: '/create', icon: Plus, current: false },
-    { name: 'Calendar', href: '#', icon: CalendarIcon, current: false },
-    { name: 'Documents', href: '#', icon: DocumentDuplicateIcon, current: false },
-    { name: 'Reports', href: '#', icon: ChartPieIcon, current: false },
+    { name: 'Saved Answers', href: '/saved-answers', icon: IconDeviceFloppy, current: false },
 ]
 
 function classNames(...classes: string[]) {
@@ -284,7 +281,7 @@ export default function SidebarLayout({ children, session, projects }: { childre
                         </div>
                     </div>
 
-                    <main className="py-10">
+                    <main className="">
                         <div className="p-4">{children}</div>
                     </main>
                 </div>
