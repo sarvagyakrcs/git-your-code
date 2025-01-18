@@ -2,7 +2,7 @@
 
 Git Your Code implements a cutting-edge Retrieval-Augmented Generation (RAG) architecture designed for deep semantic analysis of GitHub repositories. The system leverages vector embeddings, natural language processing, and machine learning to provide intelligent code comprehension and query capabilities.
 
-[![Watch the demo](https://via.placeholder.com/560x315.png?text=Video+Preview)](https://github.com/sarvagyakrcs/git-your-code/blob/7dc29f0b328e61a61ceb84a957a1074128a49ba9/demo/Saving%20Answer%20Demo%201.mov)
+[![Watch the demo](https://github.com/sarvagyakrcs/git-your-code/blob/main/demo/thumbnail.png)](https://github.com/sarvagyakrcs/git-your-code/blob/7dc29f0b328e61a61ceb84a957a1074128a49ba9/demo/Saving%20Answer%20Demo%201.mov)
 
 
 
