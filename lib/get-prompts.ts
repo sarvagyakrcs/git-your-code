@@ -1,6 +1,12 @@
-import { Document } from "@langchain/core/documents"
+import { Document } from "@langchain/core/documents";
 
-export const GetDiffSummarizePrompt = (diff: string) => {
+/**
+ * Generates a detailed prompt for summarizing a Git diff.
+ * 
+ * @param {string} diff - The Git diff string to analyze and summarize.
+ * @returns {string} A structured prompt string for summarizing the Git diff.
+ */
+export const GetDiffSummarizePrompt = (diff: string): string => {
     return `
     # Git Commit Summary Prompt
 
@@ -71,9 +77,15 @@ export const GetDiffSummarizePrompt = (diff: string) => {
     - Exclude auto-generated files (like lockfiles) unless specifically relevant
     - Exclude temporary or debug code changes
     - Focus on changes that affect functionality, performance, or user experience
-`
-}
+`;
+};
 
+/**
+ * Generates a prompt for summarizing a code file for onboarding purposes.
+ * 
+ * @param {Document} doc - The document object containing the code and metadata.
+ * @returns {string[]} An array of strings forming the complete prompt for summarizing the code.
+ */
 export const GetCodeSummarizePrompt = (doc: Document): string[] => {
     // Limit the code content to 10000 characters to match the image
     const code = doc.pageContent.slice(0, 10000);
@@ -102,3 +114,43 @@ export const GetCodeSummarizePrompt = (doc: Document): string[] => {
         'Give a summary no more than 100 words of the code above'
     ];
 };
+
+/**
+ * Parameters for creating a custom question prompt.
+ * 
+ * @typedef {Object} PromptParams
+ * @property {string} [context] - Optional context block to provide additional information.
+ * @property {string} [question] - Optional question to ask about the codebase.
+ */
+
+/**
+ * Generates a prompt for asking a question about a codebase.
+ * 
+ * @param {PromptParams} params - The parameters containing context and/or a question.
+ * @returns {string} A structured prompt string for asking the question.
+ */
+
+type PromptParams = {
+    context?: string; 
+    question?: string; 
+}
+
+export function GetAskAQuestionPrompt({ context, question }: PromptParams): string {
+    return `You are a ai code assistant who answers questions about the codebase. Your target audience is a technical intern who needs help understanding the code.
+    AI assistant is a brand new, powerful, human-like artificial intelligence.
+    The traits of AI include expert knowledge, helpfulness, cleverness, and articulateness.
+    AI is a well-behaved and well-mannered individual.
+    AI is always friendly, kind, and inspiring, and he is eager to provide vivid and thoughtful responses to the user.
+    AI has the sum of all knowledge in their brain, and is able to accurately answer nearly any question about any topic.
+    If the question is asking about code or a specific file, AI will provide the detailed answer, giving step by step instructions.
+    
+    ${context ? `START CONTEXT BLOCK\n${context}\nEND OF CONTEXT BLOCK\n` : ''}
+    
+    ${question ? `START QUESTION\n${question}\nEND OF QUESTION\n` : ''}
+    
+    AI assistant will take into account any CONTEXT BLOCK that is provided in a conversation.
+    If the context does not provide the answer to question, the AI assistant will say, "I'm sorry, but I don't know the answer."
+    AI assistant will not apologize for previous responses, but instead will indicated new information was gained.
+    AI assistant will not invent anything that is not drawn directly from the context.
+    Answer in markdown syntax, with code snippets if needed. Be as detailed as possible when answering.`;
+}

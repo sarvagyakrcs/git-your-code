@@ -1,15 +1,38 @@
 "use client"
 import React from 'react'
 import AnswerDialogue from './answer-dialogue';
+import { askQuestion } from '@/actions/ask-question';
+import { set } from 'date-fns';
+import { readStreamableValue } from 'ai/rsc';
 
 
-const AskAQuestion = () => {
+const AskAQuestion = ({ projectId } : {projectId: string}) => {
     const [question, setQuestion] = React.useState('');
     // for the answer dialogue
-    const [open, setOpen] = React.useState(false)
-    const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    const [open, setOpen] = React.useState(false);
+    //loading state
+    const [loading, setLoading] = React.useState(false);
+    // files references
+    const [filesReferences, setFilesReferences] = React.useState<{fileName: string, sourceCode: string, summary: string}[]>([]);
+    // answer
+    const [answer, setAnswer] = React.useState('');
+
+    const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+        if(!projectId) return;
+        setAnswer('');
+        setFilesReferences([]);
         e.preventDefault();
+        setLoading(true);
         setOpen(true)
+        const { filesReferences, stream } = await askQuestion(question, projectId);
+        setFilesReferences(filesReferences);
+
+        for await (const data of readStreamableValue(stream)){
+            if(data){
+                setAnswer(answer => answer + data);
+            }
+        }
+        setLoading(false);
     }
     return (
         <div>
@@ -30,7 +53,7 @@ const AskAQuestion = () => {
                     Ask Question
                 </button>
             </form>
-            <AnswerDialogue open={open} setOpen={setOpen} />
+            <AnswerDialogue open={open} setOpen={setOpen} answer={answer} files={filesReferences} />
         </div>
     )
 }

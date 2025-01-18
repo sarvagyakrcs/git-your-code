@@ -40,7 +40,7 @@ export default function DashboardGrid({ project } : {project : Project}) {
                         </p>
                     </div>
                     <div className="flex flex-1 items-center justify-center px-8 max-lg:pb-12 max-lg:pt-10 sm:px-10 lg:pb-2">
-                        <AskAQuestion />
+                        <AskAQuestion projectId={project.id} />
                     </div>
                 </div>
                 <div className="pointer-events-none absolute inset-px rounded-lg shadow ring-1 ring-black/5 max-lg:rounded-t-[2rem]"></div>
