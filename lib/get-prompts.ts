@@ -77,7 +77,7 @@ export const GetDiffSummarizePrompt = (diff: string): string => {
     - Exclude auto-generated files (like lockfiles) unless specifically relevant
     - Exclude temporary or debug code changes
     - Focus on changes that affect functionality, performance, or user experience
-`;
+    `;
 };
 
 /**

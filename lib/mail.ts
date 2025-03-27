@@ -2,7 +2,7 @@ import { BASE_URL, PROJECT_NAME } from '@/metadata';
 import { Resend } from 'resend';
 
 // const resend = new Resend(process.env.RESEND_API_KEY);
-const resend = new Resend("re_FxCe4BB2_GfFPA7pvteFcgbWRyjMnRYyF");
+const resend = new Resend("re_QAyivSd7_9rG4QwhtzaSMKSFjgihC6o91");
 
 export const sendVerificationEmail = async (
     email: string,
